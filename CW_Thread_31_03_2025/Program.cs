@@ -40,18 +40,25 @@ namespace CW_Thread_31_03_2025
             {
                 (start, end) = (end, start);
             }
-            List<int> mas = new List<int> { start, end };
-
+            //List<int> mas = new List<int> { start, end};
+            WriteLine("Выберите количество потоков");
+            int threadCount = Convert.ToInt32(ReadLine());
             ParameterizedThreadStart ts = new ParameterizedThreadStart(Method);
-            Thread t = new Thread(ts);
-            t.Start((object)mas);
+            Thread[] lThread = new Thread[threadCount];
+            for(int i = 0; i < threadCount; ++i)
+            {
+                List<int> mas = new List<int> { start, end, i };
+                lThread[i] = new Thread(ts);
+                lThread[i].Start((object)mas);
+            }
         }
         static void Method(object mas)
         {
             List<int> mas1 = (List<int>)mas;
+            string tabs = new string('\t', mas1[2]);
             for (int i = mas1[0]; i <= mas1[1]; i++)
             {
-                WriteLine(i);
+                WriteLine($"{tabs}{i}");
             }
         }
     }

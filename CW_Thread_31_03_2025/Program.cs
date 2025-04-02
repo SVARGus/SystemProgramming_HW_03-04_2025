@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using static System.Console;
@@ -31,13 +32,24 @@ namespace CW_Thread_31_03_2025
     {
         static void Main(string[] args)
         {
-            ThreadStart ts = new ThreadStart(Method);
+            WriteLine("Введите начальный диапазон вывода:");
+            int start = Convert.ToInt32(Console.ReadLine());
+            WriteLine("Введите конечный диапазон вывода:");
+            int end = Convert.ToInt32(Console.ReadLine());
+            if(start > end)
+            {
+                (start, end) = (end, start);
+            }
+            List<int> mas = new List<int> { start, end };
+
+            ParameterizedThreadStart ts = new ParameterizedThreadStart(Method);
             Thread t = new Thread(ts);
-            t.Start();
+            t.Start((object)mas);
         }
-        static void Method()
+        static void Method(object mas)
         {
-            for (int i = 0; i <= 50; i++)
+            List<int> mas1 = (List<int>)mas;
+            for (int i = mas1[0]; i <= mas1[1]; i++)
             {
                 WriteLine(i);
             }

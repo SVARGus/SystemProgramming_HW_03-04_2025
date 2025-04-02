@@ -14,7 +14,7 @@ namespace HW_LegcyCode_26_03_2025_Task3
         public static extern bool Beep(uint dwFreq, uint dwDuration);
 
 
-        [DllImport("uder32.dll", SetLastError = true)]
+        [DllImport("user32.dll", SetLastError = true)]
         public static extern bool MessageBeep(uint uType);
 
         // Константы звуков
@@ -27,7 +27,12 @@ namespace HW_LegcyCode_26_03_2025_Task3
 
         static void Main(string[] args)
         {
-            Melodia2();           
+            Melodia1();
+
+            Console.WriteLine("для прослушивания следующей мелодии нажмите клавишу");
+            Console.ReadKey();
+
+            Melodia2();
 
             Console.WriteLine("для выхода нажмите любую кнопку");
             Console.ReadKey();
@@ -40,28 +45,24 @@ namespace HW_LegcyCode_26_03_2025_Task3
                 Beep(400, 500);
                 Thread.Sleep(500);
 
-                // на ноуте выдало исключение: System.DllNotFoundException: "Не удается загрузить DLL "uder32.dll": Не найден указанный модуль. (Исключение из HRESULT: 0x8007007E)"
                 MessageBeep(MB_ICONQUESTION);
                 Thread.Sleep(500);
 
                 Beep(800, 400);
                 Thread.Sleep(500);
 
-                // на ноуте выдало исключение: System.DllNotFoundException: "Не удается загрузить DLL "uder32.dll": Не найден указанный модуль. (Исключение из HRESULT: 0x8007007E)"
                 MessageBeep(MB_ICONINFORMATION);
                 Thread.Sleep(500);
 
                 Beep(1000, 200);
                 Thread.Sleep(500);
 
-                // на ноуте выдало исключение: System.DllNotFoundException: "Не удается загрузить DLL "uder32.dll": Не найден указанный модуль. (Исключение из HRESULT: 0x8007007E)"
                 MessageBeep(MB_OK);
                 Thread.Sleep(500);
 
                 Beep(600, 500);
                 Thread.Sleep(500);
 
-                // на ноуте выдало исключение: System.DllNotFoundException: "Не удается загрузить DLL "uder32.dll": Не найден указанный модуль. (Исключение из HRESULT: 0x8007007E)"
                 MessageBeep(MB_SYSTEMMODAL);
                 Thread.Sleep(500);
             }

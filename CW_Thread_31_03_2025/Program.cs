@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using static System.Console;
 
 /*
 
@@ -32,6 +31,16 @@ namespace CW_Thread_31_03_2025
     {
         static void Main(string[] args)
         {
+            ThreadStart ts = new ThreadStart(Method);
+            Thread t = new Thread(ts);
+            t.Start();
+        }
+        static void Method()
+        {
+            for (int i = 0; i <= 50; i++)
+            {
+                WriteLine(i);
+            }
         }
     }
 }

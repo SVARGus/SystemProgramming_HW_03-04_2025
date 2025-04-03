@@ -28,11 +28,11 @@
         <Button Grid.Row="2" x:Name="StartButton" Content="Сгенерировать массив и вычислить min, max, avg" Margin="5" Click="StartButton_Click"/>
         <StackPanel Grid.Row="3" Orientation="Horizontal">
             <TextBlock Text="Минимальное значение = " Margin="5"/>
-            <TextBlock Text="{Binding Min}" Margin="5"/>
+            <TextBlock Text="0" x:Name="MinTB" Margin="5"/>
             <TextBlock Text="Максимальное значение = " Margin="5"/>
-            <TextBlock Text="{Binding Max}" Margin="5"/>
+            <TextBlock Text="0" x:Name="MaxTB" Margin="5"/>
             <TextBlock Text="Среднее значение = " Margin="5"/>
-            <TextBlock Text="{Binding Average}" Margin="5"/>
+            <TextBlock Text="0" x:Name="AvgTB" Margin="5"/>
         </StackPanel>
         <Button Grid.Row="4" Content="открыть файл с сохраненными данными" Margin="5" x:Name="OpenButton" Click="OpenButton_Click"/>
     </Grid>

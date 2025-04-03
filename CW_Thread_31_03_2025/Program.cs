@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
@@ -31,6 +32,13 @@ using static System.Console;
 
 namespace CW_Thread_31_03_2025
 {
+    class CalcResults
+    {
+        public int[] Numbers { get; set; }
+        public int Max { get; set; }
+        public int Min { get; set; }
+        public double Average { get; set; }
+    }
     class Program
     {
         static void Main(string[] args)
@@ -46,57 +54,94 @@ namespace CW_Thread_31_03_2025
                     Task_1_3();
                     break;
                 case 4:
-                    Task_4();
+                case 5:
+                    Task_4_5();
                     break;
             }
         }
-        static void Task_4()
+        static void Task_4_5()
         {
+            var results = new CalcResults();
+
+            Thread genNum = new Thread(MethodGenNum);
+            genNum.Start(results);
+            genNum.Join();
+
+            List<Thread> threads = new List<Thread>();
+            threads.Add(new Thread(MethodMin));
+            threads.Add(new Thread(MethodMax));
+            threads.Add(new Thread(MethodAverage));
+            foreach(var thr in threads)
+            {
+                thr.Start(results);
+            }
+            foreach (var thr in threads)
+            {
+                thr.Join();
+            }
+
+            Thread writeToFile = new Thread(MethodWriteResultToFile);
+            writeToFile.Start(results);
+            writeToFile.Join();
+        }
+        static void MethodWriteResultToFile(object obj)
+        {
+            var results = (CalcResults)obj;
+            string path = "results.txt";
+            using (StreamWriter writer = new StreamWriter(path))
+            {
+                writer.WriteLine("Сгенерированные числа:");
+                foreach (var num in results.Numbers)
+                {
+                    writer.Write(num + " ");
+                }
+                writer.WriteLine("\n\nРезультаты вычислений:");
+                writer.WriteLine($"Минимальное значение: {results.Min}");
+                writer.WriteLine($"Максимальное значение: {results.Max}");
+                writer.WriteLine($"Среднее значение: {results.Average:F2}");
+            }
+            WriteLine($"Результаты успешно записаны в файл {Path.GetFullPath(path)}");
+        }
+        static void MethodGenNum(object obj)
+        {
+            var results = (CalcResults)obj;
             int sizeMus = 1000;
             Random r = new Random();
-            int[] randNums = new int[sizeMus];
-            for(int i = 0; i < sizeMus; ++i)
+            results.Numbers = new int[sizeMus];
+            for (int i = 0; i < sizeMus; ++i)
             {
-                randNums[i] = r.Next(9999);
+                results.Numbers[i] = r.Next(9999);
             }
-            ParameterizedThreadStart min = new ParameterizedThreadStart(MethodMin);
-            ParameterizedThreadStart max = new ParameterizedThreadStart(MethodMax);
-            ParameterizedThreadStart average = new ParameterizedThreadStart(MethodAverage);
-            Thread minSearch = new Thread(min);
-            Thread maxSearch = new Thread(max);
-            Thread averageSearch = new Thread(average);
-            minSearch.Start((object)randNums);
-            maxSearch.Start((object)randNums);
-            averageSearch.Start((object)randNums);
+        }
+        static void MethodMin(object obj)
+        {
+            var results = (CalcResults)obj;
 
-        }
-        static void MethodMin(object mas)
-        {
-            int[] arr = (int[])mas;
-            int min = arr[0];
-            for(int i = 1; i < arr.Length; ++i)
+            results.Min = results.Numbers[0];
+            for(int i = 1; i < results.Numbers.Length; ++i)
             {
-                if (arr[i] < min)
-                    min = arr[i];
+                if (results.Numbers[i] < results.Min)
+                    results.Min = results.Numbers[i];
             }
-            WriteLine("Минимальное значение массива = {0}", min);
+            WriteLine("Минимальное значение массива = {0}", results.Min);
         }
-        static void MethodMax(object mas)
+        static void MethodMax(object obj)
         {
-            int[] arr = (int[])mas;
-            int max = arr[0];
-            for (int i = 1; i < arr.Length; ++i)
+            var results = (CalcResults)obj;
+
+            results.Max = results.Numbers[0];
+            for (int i = 1; i < results.Numbers.Length; ++i)
             {
-                if (arr[i] > max)
-                    max = arr[i];
+                if (results.Numbers[i] > results.Max)
+                    results.Max = results.Numbers[i];
             }
-            WriteLine("Максимальное значение массива = {0}", max);
+            WriteLine("Максимальное значение массива = {0}", results.Max);
         }
-        static void MethodAverage(object mas)
+        static void MethodAverage(object obj)
         {
-            int[] arr = (int[])mas;
-            double average = (double)arr.Sum() / arr.Length;
-            WriteLine("Среднее значение массива = {0}", average);
+            var results = (CalcResults)obj;
+            results.Average = (double)results.Numbers.Sum() / results.Numbers.Length;
+            WriteLine("Среднее значение массива = {0}", results.Average);
         }
 
 

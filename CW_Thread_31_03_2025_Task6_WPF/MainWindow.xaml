@@ -1,0 +1,38 @@
+﻿<Window x:Class="CW_Thread_31_03_2025_Task6_WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CW_Thread_31_03_2025_Task6_WPF"
+        mc:Ignorable="d"
+        Title="Потоковый вывод чисел" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <TextBlock Text="Введите начальный диапазон:" Margin="5" Width="200"/>
+            <TextBox Margin="5" Width="100" x:Name="StartTB"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <TextBlock Text="Введите конечный диапазон:" Margin="5" Width="200"/>
+            <TextBox Margin="5" Width="100" x:Name="EndTB"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <TextBlock Text="Укажите количество потоков:" Margin="5" Width="200"/>
+            <TextBox Margin="5" Width="100" x:Name="CountThreadTB"/>
+        </StackPanel>
+        <Button Content="Start" Grid.Row="3" x:Name="StartButton" Click="StartButton_Click"/>
+        <ScrollViewer Grid.Row="4">
+            <ItemsControl x:Name="ContainerThread">
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" Margin="5"/>
+                </DataTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</Window>

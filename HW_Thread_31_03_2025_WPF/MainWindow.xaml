@@ -5,8 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HW_Thread_31_03_2025_WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="Auto" Width="800">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Генератор простых чисел" FontSize="40" FontWeight="Bold" TextAlignment="Center" Background="AliceBlue" Padding="5"/>
+        <ScrollViewer Grid.Row="2" Margin="5" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Height="75">
+            <TextBox x:Name="PrimeNumbersTextBlock" TextWrapping="Wrap" IsReadOnly="True" Padding="5" VerticalScrollBarVisibility="Visible"/>
+        </ScrollViewer>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="5">
+            <TextBlock Text="От:" Width="40" Margin="10"/>
+            <TextBox x:Name="PrimeFromTextBox" Width="100" Margin="5"/>
+            <TextBlock Text="До:" Width="40" Margin="10"/>
+            <TextBox x:Name="PrimeToTextBox" Width="100" Margin="5"/>
+            <Button x:Name="PrimeStartButton" Content="Старт" Width="80" Margin="5" Click="PrimeStartButton_Click"/>
+            <Button x:Name="PrimeStopButton" Content="Стоп" Width="80" Margin="5" Click="PrimeStopButton_Click" IsEnabled="False"/>
+            <Button x:Name="PrimePauseButton" Content="Пауза" Width="80" Margin="5" Click="PrimePauseButton_Click" IsEnabled="False"/>
+            <Button x:Name="PrimeResumeButton" Content="Продолжить" Width="80" Margin="5" Click="PrimeResumeButton_Click" IsEnabled="False"/>
+            <Button x:Name="PrimeRestartButton" Content="Рестарт" Width="80" Margin="5" Click="PrimeRestartButton_Click" IsEnabled="False"/>
+        </StackPanel>
+
+        <TextBlock Grid.Row="3" Text="Генератор Числа Фибоначчи" FontSize="40" FontWeight="Bold" TextAlignment="Center" Background="AliceBlue" Padding="5"/>
+        <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="5">
+            <TextBlock Text="Количество:" Width="80" Margin="10"/>
+            <TextBox x:Name="FibonacciCountTextBox" Width="100" Margin="5"/>
+            <Button x:Name="FibonacciStartButton" Content="Старт" Width="80" Margin="5" Click="FibonacciStartButton_Click"/>
+            <Button x:Name="FibonacciStopButton" Content="Стоп" Width="80" Margin="5" Click="FibonacciStopButton_Click" IsEnabled="False"/>
+            <Button x:Name="FibonacciPauseButton" Content="Пауза" Width="80" Margin="5" Click="FibonacciPauseButton_Click" IsEnabled="False"/>
+            <Button x:Name="FibonacciResumeButton" Content="Продолжить" Width="80" Margin="5" Click="FibonacciResumeButton_Click" IsEnabled="False"/>
+            <Button x:Name="FibonacciRestartButton" Content="Рестарт" Width="80" Margin="5" Click="FibonacciRestartButton_Click" IsEnabled="False"/>
+        </StackPanel>
+        <ScrollViewer Grid.Row="5" Margin="5" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Height="75">
+            <TextBox x:Name="FibonacciNumbersTextBlock" TextWrapping="Wrap" IsReadOnly="True" Padding="5" VerticalScrollBarVisibility="Visible"/>
+        </ScrollViewer>
+        <Button Grid.Row="6" Content="Полный рестарт всех потоков" x:Name="FullRestartButton" FontSize="30" Margin="5" Click="FullRestartButton_Click"/>
     </Grid>
 </Window>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -41,9 +42,101 @@ namespace HW_Thread_31_03_2025_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        // Переменные простых чисел
+        private Thread _primeThread;
+        private int _primeTo = 2; // Если не указана нижняя граница, поток с стартует с 2.
+        private int? _primeFor = null; // Если не указана верхняя граница, генерирование происходит до завершения приложения.
+        private bool _primeRunning = false; // флаг запуска
+        private bool _primePaused = false; // флаг паузы
+
+        // Переменные числа Фибоначчи
+        private Thread _fibonacciThread;
+        private int _fibonacciCount = 0;
+        private bool _fibonacciRunning = false;
+        private bool _fibonacciPaused = false;
+
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void GeneratePrimes() // Генератор простых чисел в PrimeNumbersTextBlock
+        {
+
+        }
+
+        private bool IsPrime(int number) // Проверка числа (простое или нет)
+        {
+            if (number <= 1) return false;
+            if (number == 2) return true;
+            if (number % 2 == 0) return false;
+
+            for(int i = 3; i <= Math.Sqrt(number); i += 2)
+            {
+                if (number % i == 0) return false;
+            }
+            return true;
+        }
+
+        private void PrimeStartButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void PrimeStopButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void PrimePauseButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void PrimeResumeButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void PrimeRestartButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void GenerateFibonacci() // Генератор чисел Фибоначчи
+        {
+
+        }
+
+        private void FibonacciStartButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void FibonacciStopButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void FibonacciPauseButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void FibonacciResumeButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void FibonacciRestartButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void FullRestartButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

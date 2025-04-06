@@ -44,8 +44,8 @@ namespace HW_Thread_31_03_2025_WPF
     {
         // Переменные простых чисел
         private Thread _primeThread;
-        private int _primeTo = 2; // Если не указана нижняя граница, поток с стартует с 2.
-        private int? _primeFor = null; // Если не указана верхняя граница, генерирование происходит до завершения приложения.
+        private int _primeFrom = 2; // Если не указана нижняя граница, поток с стартует с 2.
+        private int? _primeTo = null; // Если не указана верхняя граница, генерирование происходит до завершения приложения.
         private bool _primeRunning = false; // флаг запуска
         private bool _primePaused = false; // флаг паузы
 
@@ -63,7 +63,23 @@ namespace HW_Thread_31_03_2025_WPF
 
         private void GeneratePrimes() // Генератор простых чисел в PrimeNumbersTextBlock
         {
-
+            int current = _primeFrom;
+            StringBuilder primesBuilder = new StringBuilder(capacity: 500);
+            while (_primeRunning)
+            {
+                if(IsPrime(current))
+                {
+                    Dispatcher.Invoke(() => {
+                        PrimeNumbersTextBlock.AppendText(current + " ");
+                        PrimeNumbersTextBlock.ScrollToEnd();
+                    });
+                    Thread.Sleep(100);
+                }
+                if(_primeTo.HasValue && current > _primeTo.Value) 
+                    break;
+                current++;
+            }
+            primesBuilder.Clear();
         }
 
         private bool IsPrime(int number) // Проверка числа (простое или нет)
@@ -79,29 +95,62 @@ namespace HW_Thread_31_03_2025_WPF
             return true;
         }
 
+        private void UpdatePrimeButtons(bool running)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                PrimeStartButton.IsEnabled = !running;
+                PrimeStopButton.IsEnabled = running;
+                PrimePauseButton.IsEnabled = running && !_primePaused;
+                PrimeResumeButton.IsEnabled = running && _primePaused;
+                PrimeRestartButton.IsEnabled = running;
+            });
+        }
+
         private void PrimeStartButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!int.TryParse(PrimeFromTextBox.Text, out _primeFrom) || _primeFrom < 2)
+                _primeFrom = 2;
+            if (int.TryParse(PrimeToTextBox.Text, out int to) && to >= _primeFrom)
+                _primeTo = to;
+            else
+                _primeTo = null;
 
+            PrimeNumbersTextBlock.Text = null;
+            _primeRunning = true;
+
+            _primeThread = new Thread(GeneratePrimes);
+            _primeThread.IsBackground = true;
+            _primeThread.Start();
+
+            UpdatePrimeButtons(true);
         }
 
         private void PrimeStopButton_Click(object sender, RoutedEventArgs e)
         {
-
+            _primeRunning = false;
+            UpdatePrimeButtons(false);
         }
 
         private void PrimePauseButton_Click(object sender, RoutedEventArgs e)
         {
-
+            _primeThread.Suspend();
+            _primePaused = true;
+            UpdatePrimeButtons(true);
         }
 
         private void PrimeResumeButton_Click(object sender, RoutedEventArgs e)
         {
-
+            _primeThread.Resume();
+            _primePaused = false;
+            UpdatePrimeButtons(true);
         }
 
         private void PrimeRestartButton_Click(object sender, RoutedEventArgs e)
         {
-
+            _primeThread.Suspend();
+            PrimeStopButton_Click(sender, e);
+            PrimeStartButton_Click(sender, e);
         }
 
         private void GenerateFibonacci() // Генератор чисел Фибоначчи

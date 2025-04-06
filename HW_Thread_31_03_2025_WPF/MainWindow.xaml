@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HW_Thread_31_03_2025_WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="Auto" Width="800">
+        Title="MainWindow" Height="Auto" Width="850">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -17,7 +17,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="Генератор простых чисел" FontSize="40" FontWeight="Bold" TextAlignment="Center" Background="AliceBlue" Padding="5"/>
-        <ScrollViewer Grid.Row="2" Margin="5" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Height="75">
+        <ScrollViewer Grid.Row="2" Margin="5" VerticalScrollBarVisibility="Auto" Height="75">
             <TextBox x:Name="PrimeNumbersTextBlock" TextWrapping="Wrap" IsReadOnly="True" Padding="5" VerticalScrollBarVisibility="Visible"/>
         </ScrollViewer>
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="5">

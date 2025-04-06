@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HW_Thread_31_03_2025_WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="Auto" Width="850">
+        Title="MainWindow" Height="500" Width="850">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -42,7 +42,7 @@
             <Button x:Name="FibonacciResumeButton" Content="Продолжить" Width="80" Margin="5" Click="FibonacciResumeButton_Click" IsEnabled="False"/>
             <Button x:Name="FibonacciRestartButton" Content="Рестарт" Width="80" Margin="5" Click="FibonacciRestartButton_Click" IsEnabled="False"/>
         </StackPanel>
-        <ScrollViewer Grid.Row="5" Margin="5" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Height="75">
+        <ScrollViewer Grid.Row="5" Margin="5" VerticalScrollBarVisibility="Auto" Height="75">
             <TextBox x:Name="FibonacciNumbersTextBlock" TextWrapping="Wrap" IsReadOnly="True" Padding="5" VerticalScrollBarVisibility="Visible"/>
         </ScrollViewer>
         <Button Grid.Row="6" Content="Полный рестарт всех потоков" x:Name="FullRestartButton" FontSize="30" Margin="5" Click="FullRestartButton_Click"/>

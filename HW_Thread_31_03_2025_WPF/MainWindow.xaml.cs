@@ -155,37 +155,91 @@ namespace HW_Thread_31_03_2025_WPF
 
         private void GenerateFibonacci() // Генератор чисел Фибоначчи
         {
+            long a = 0;
+            long b = 1;
+            int count = 0;
+            StringBuilder fibBuilder = new StringBuilder(capacity: 500);
 
+            Dispatcher.Invoke(() =>
+            {
+                FibonacciNumbersTextBlock.AppendText(a + " " + b + " ");
+                FibonacciNumbersTextBlock.ScrollToEnd();
+            });
+            if (_fibonacciCount == 1) return;
+            if (_fibonacciCount == 2) return;
+
+            while(_fibonacciRunning && (_fibonacciCount == 0 || count < _fibonacciCount - 2))
+            {
+                long next = a + b;
+                Dispatcher.Invoke(() =>
+                {
+                    FibonacciNumbersTextBlock.AppendText(next + " ");
+                    FibonacciNumbersTextBlock.ScrollToEnd();
+                });
+                a = b;
+                b = next; 
+                count++;
+                Thread.Sleep(100);
+            }
+            fibBuilder.Clear();
+        }
+
+        private void UpdateFibonacciButtons(bool running)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                FibonacciStartButton.IsEnabled = !running;
+                FibonacciStopButton.IsEnabled = running;
+                FibonacciPauseButton.IsEnabled = running && !_fibonacciPaused;
+                FibonacciResumeButton.IsEnabled = running && _fibonacciPaused;
+                FibonacciRestartButton.IsEnabled = running;
+            });
         }
 
         private void FibonacciStartButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!int.TryParse(FibonacciCountTextBox.Text, out _fibonacciCount) || _fibonacciCount <= 0)
+                _fibonacciCount = 0;
 
+            FibonacciCountTextBox.Clear();
+            _fibonacciRunning = true;
+            _fibonacciThread = new Thread(GenerateFibonacci);
+            _fibonacciThread.IsBackground = true;
+            _fibonacciThread.Start();
+            UpdateFibonacciButtons(true);
         }
 
         private void FibonacciStopButton_Click(object sender, RoutedEventArgs e)
         {
-
+            _fibonacciRunning = false;
+            UpdateFibonacciButtons(false);
         }
 
         private void FibonacciPauseButton_Click(object sender, RoutedEventArgs e)
         {
-
+            _fibonacciThread.Suspend();
+            _fibonacciPaused = true;
+            UpdateFibonacciButtons(true);
         }
 
         private void FibonacciResumeButton_Click(object sender, RoutedEventArgs e)
         {
-
+            _fibonacciThread.Resume();
+            _fibonacciPaused = false;
+            UpdateFibonacciButtons(true);
         }
 
         private void FibonacciRestartButton_Click(object sender, RoutedEventArgs e)
         {
-
+            _fibonacciThread.Suspend();
+            FibonacciStopButton_Click(sender, e);
+            FibonacciStartButton_Click(sender, e);
         }
 
         private void FullRestartButton_Click(object sender, RoutedEventArgs e)
         {
-
+            FibonacciRestartButton_Click(sender, e);
+            PrimeRestartButton_Click(sender, e);
         }
     }
 }

@@ -1,0 +1,71 @@
+﻿<Window x:Class="HW_Processes_28_03_2025.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HW_Processes_28_03_2025"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="Список процессов" Margin="5" FontWeight="Bold" FontSize="15"/>
+            <ListView Grid.Row="1" x:Name="ProcessesList" Margin="5" ItemsSource="{Binding}" 
+                      SelectionChanged="ProcessesList_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+
+        <StackPanel Grid.Column="1" Margin="5">
+            <TextBlock Text="Подробная информация о процессе" Margin="5" FontWeight="Bold" FontSize="15"/>
+            <StackPanel x:Name="ProcessDetails" Margin="5">
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Идентификатор процесса:" Margin="5"/>
+                    <TextBlock Text="Test #123" x:Name="ProcessId" Margin="5"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Имя процесса:" Margin="5"/>
+                    <TextBlock Text="Test #123" x:Name="ProcessName" Margin="5"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Время старта:" Margin="5"/>
+                    <TextBlock Text="Test #123" x:Name="ProcessStartTime" Margin="5"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Процессорное время:" Margin="5"/>
+                    <TextBlock Text="Test #123" x:Name="ProcessCpuTime" Margin="5"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Количество потоков:" Margin="5"/>
+                    <TextBlock Text="Test #123" x:Name="ProcessThreadCount" Margin="5"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Копий процесса:" Margin="5"/>
+                    <TextBlock Text="Test #123" x:Name="ProcessInstancesCount" Margin="5"/>
+                </StackPanel>
+            </StackPanel>
+            <Button Content="Завершить процесс" x:Name="KillProcessButton" Click="KillProcessButton_Click" Margin="5"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Column="2" Margin="5">
+            <TextBlock Text="Запуск процессов" Margin="5" FontWeight="Bold" FontSize="15"/>
+            <Button Content="Блокнот" x:Name="NotepadButton" Margin="5" Click="StartApp_Click" Tag="notepad.exe"/>
+            <Button Content="Paint" x:Name="PaintButton" Margin="5" Click="StartApp_Click" Tag="mspaint.exe"/>
+            <Button Content="Калькулятор" x:Name="CalcukatorButton" Margin="5" Click="StartApp_Click" Tag="calc.exe"/>
+            <Button Content="WordPad" x:Name="WordPadButton" Margin="5" Click="StartApp_Click" Tag="wordpad.exe"/>
+            <Button Content="Проводник" x:Name="ExplorerButton" Margin="5" Click="StartApp_Click" Tag="explorer.exe"/>
+        </StackPanel>
+    </Grid>
+</Window>

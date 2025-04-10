@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HorseRacingMultithreading",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatedFibonacciAsync", "CalculatedFibonacciAsync\CalculatedFibonacciAsync.csproj", "{A6F9BAD2-D832-4E3F-B791-F0F5DD43DB78}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileWordSearch_WPF", "FileWordSearch_WPF\FileWordSearch_WPF.csproj", "{D8C64AFA-095E-483E-8BE6-1CE9CE08A3BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{A6F9BAD2-D832-4E3F-B791-F0F5DD43DB78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6F9BAD2-D832-4E3F-B791-F0F5DD43DB78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6F9BAD2-D832-4E3F-B791-F0F5DD43DB78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8C64AFA-095E-483E-8BE6-1CE9CE08A3BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8C64AFA-095E-483E-8BE6-1CE9CE08A3BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8C64AFA-095E-483E-8BE6-1CE9CE08A3BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8C64AFA-095E-483E-8BE6-1CE9CE08A3BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -5,8 +5,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DirectoryWorldFinder_WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+            Title="MainWindow" SizeToContent="Height" MinHeight="200" MaxHeight="500" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Укажите искомое слово" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="0" Grid.Column="1" x:Name="SearchTextBox" FontSize="18" Margin="5"/>
+
+        <CheckBox Grid.Row="1" Grid.Column="0" Content="Учитывать регистр?" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" x:Name="CaseSensitiveCheckBox"/>
+
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Выберите Дерикторию" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+            <TextBox Grid.Row="2" Grid.Column="1" x:Name="SelectDerictoriiTextBox" FontSize="18" Margin="5" Width="400" HorizontalScrollBarVisibility="Auto"/>
+            <Button x:Name="SelectFileButton" Content="Выбрать" Width="100" Click="SelectFileButton_Click"/>
+        </StackPanel>
+
+        <Button Grid.Row="3" Grid.ColumnSpan="2" Content="Начать поиск" x:Name="StartSearchButton" Margin="15" FontSize="24" FontWeight="Bold" Click="StartSearchButton_Click"/>
+
+        <ListBox Grid.Row="4" Grid.ColumnSpan="2" x:Name="ResultsListBox" Margin="5" Height="200">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding fileName}" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding filePath}" FontStyle="Italic"/>
+                        <TextBlock Text="{Binding wordCount}" Foreground="Green"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button Grid.Row="5" Grid.ColumnSpan="2" Content="Прервать поиск" x:Name="StoptSearchButton" Margin="15" FontSize="24" FontWeight="Bold" Click="StoptSearchButton_Click"/>
     </Grid>
 </Window>
